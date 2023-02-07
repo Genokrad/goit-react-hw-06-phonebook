@@ -10,7 +10,7 @@ import { setUsers, deleteUsers, setFilter } from 'store/users/usersSlice';
 
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
-const LOCAL_KEY = 'LOCALKEY';
+// const LOCAL_KEY = 'LOCALKEY';
 
 export function App() {
   const contacts = useSelector(state => state.users.users);
