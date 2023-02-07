@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix';
 import { Section } from './Section/Section';
@@ -6,15 +5,22 @@ import { Form } from './Form/Form';
 import { Search } from './Search/Search';
 import { Contacts } from './Contacts/Contacts';
 import { StyledDiv } from './App.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUsers, deleteUsers, setFilter } from 'store/users/usersSlice';
+
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 const LOCAL_KEY = 'LOCALKEY';
 
 export function App() {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(localStorage.getItem(LOCAL_KEY)) || []
-  );
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(state => state.users.users);
+  const filter = useSelector(state => state.users.filteredUsers);
+  // const [contacts, setContacts] = useState(
+  //   () => JSON.parse(localStorage.getItem(LOCAL_KEY)) || []
+  // );
+  // const [filter, setFilter] = useState('');
+
+  const dispatch = useDispatch();
 
   const sendData = data => {
     const { name, number } = data;
@@ -36,12 +42,13 @@ export function App() {
       number: number,
     };
 
-    setContacts(prevState => [...prevState, newCustomer]);
+    dispatch(setUsers(newCustomer));
+    // setContacts(prevState => [...prevState, newCustomer]);
   };
 
   const filterValueHandler = event => {
     const { value } = event.target;
-    setFilter(value);
+    dispatch(setFilter(value));
   };
 
   const filterContacts = () => {
@@ -51,12 +58,13 @@ export function App() {
   };
 
   const deleteContact = id => {
-    setContacts(prevState => prevState.filter(contact => contact.id !== id));
+    dispatch(deleteUsers(id));
+    // setContacts(prevState => prevState.filter(contact => contact.id !== id));
   };
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_KEY, JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem(LOCAL_KEY, JSON.stringify(contacts));
+  // }, [contacts]);
 
   return (
     <StyledDiv>

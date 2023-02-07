@@ -1,25 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const userSlice = createSlice({
+const initialState = {
+  users: [],
+  filteredUsers: '',
+};
+
+export const usresSlice = createSlice({
   name: 'users',
-  initialState: {
-    users: [],
-  },
+  initialState,
   reducers: {
-    addAction: (state, { payload }) => {
-      state.users.push(payload);
+    setUsers: (state, action) => {
+      state.users = [...state.users, action.payload];
     },
-    deleteAction: (state, { payload }) => {
-      state.users = state.users.filter(user => user.id !== payload);
+    deleteUsers: (state, action) => {
+      state.users = state.users.filter(
+        contact => contact.id !== action.payload
+      );
     },
-    changeStatusUser: (state, { payload }) => {
-      state.users = state.users.map(user => {
-        const status = user.status === 'online' ? 'offline' : 'online';
-        return user.id === payload ? { ...user, status } : user;
-      });
+    setFilter: (state, action) => {
+      state.filteredUsers = action.payload;
     },
   },
 });
 
-export const { addAction, deleteAction, changeStatusUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { setUsers, deleteUsers, setFilter } = usresSlice.actions;
+export default usresSlice.reducer;
