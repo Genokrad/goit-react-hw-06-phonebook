@@ -6,15 +6,19 @@ import { Search } from './Search/Search';
 import { Contacts } from './Contacts/Contacts';
 import { StyledDiv } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUsers, deleteUsers, setFilter } from 'store/users/usersSlice';
+import { setUsers, deleteUsers } from 'store/users/usersSlice';
+import { setFilter } from 'store/filter/filterSlice';
+import { getFilter } from 'store/filter/filterSelector';
+import { getUser } from 'store/users/usersSelector';
 
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 // const LOCAL_KEY = 'LOCALKEY';
 
 export function App() {
-  const contacts = useSelector(state => state.users.users);
-  const filter = useSelector(state => state.users.filteredUsers);
+  const contacts = useSelector(getUser);
+  console.log(contacts);
+  const filter = useSelector(getFilter);
   // const [contacts, setContacts] = useState(
   //   () => JSON.parse(localStorage.getItem(LOCAL_KEY)) || []
   // );

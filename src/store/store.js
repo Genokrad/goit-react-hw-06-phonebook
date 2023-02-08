@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import usersSlice from './users/usersSlice';
+import { usersSlice } from './users/usersSlice';
+import { filterSlice } from './filter/filterSlice';
 import {
   persistStore,
   persistReducer,
@@ -12,16 +13,23 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+// const rootReducer = combineReducers({
+//   users: usersSlice.reducer,
+//   filter: filterSlice.reducer,
+// });
+
 const persistConfig = {
   key: 'root',
+  whitelist: ['users'],
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, usersSlice);
+const persistedReducer = persistReducer(persistConfig, usersSlice.reducer);
 
 export const store = configureStore({
   reducer: {
     users: persistedReducer,
+    filter: filterSlice.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
