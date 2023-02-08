@@ -10,10 +10,10 @@ export const usersSlice = createSlice({
   reducers: {
     setUsers: (state, action) => {
       console.log(state);
-      state.users.users = [...state.users.users, action.payload];
+      state.users.push(action.payload);
     },
     deleteUsers: (state, action) => {
-      state.users.users = state.users.users.filter(
+      state.users = state.users.filter(
         contact => contact.id !== action.payload
       );
     },
