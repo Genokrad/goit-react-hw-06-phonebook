@@ -11,18 +11,10 @@ import { setFilter } from 'store/filter/filterSlice';
 import { getFilter } from 'store/filter/filterSelector';
 import { getUser } from 'store/users/usersSelector';
 
-// import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
-
-// const LOCAL_KEY = 'LOCALKEY';
-
 export function App() {
   const contacts = useSelector(getUser);
   console.log(contacts);
   const filter = useSelector(getFilter);
-  // const [contacts, setContacts] = useState(
-  //   () => JSON.parse(localStorage.getItem(LOCAL_KEY)) || []
-  // );
-  // const [filter, setFilter] = useState('');
 
   const dispatch = useDispatch();
 
